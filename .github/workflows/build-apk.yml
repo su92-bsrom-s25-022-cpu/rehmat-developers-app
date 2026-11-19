@@ -1,3 +1,4 @@
+
 name: Build Rehmat Developers APK
 
 on:
@@ -12,6 +13,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout project
         uses: actions/checkout@v4
@@ -27,6 +29,11 @@ jobs:
         with:
           channel: stable
           cache: true
+
+      - name: Generate Android project files
+        run: |
+          flutter create --platforms=android --org com.rehmatdevelopers --project-name rehmat_developers /tmp/rehmat_android_scaffold
+          cp -R /tmp/rehmat_android_scaffold/android ./android
 
       - name: Install dependencies
         run: flutter pub get
